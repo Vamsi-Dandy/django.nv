@@ -57,8 +57,6 @@ workflows:
           requires:
             - test
       - nuclei
-          requires:
-            - integration
       - prod:
           type: approval
           requires:
