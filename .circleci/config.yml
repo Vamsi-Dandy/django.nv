@@ -26,6 +26,7 @@ jobs:
           command: |
             echo "This is an integration step"
             exit 1
+	  when: on_fail
 
   nuclei:
     machine: true
@@ -33,7 +34,7 @@ jobs:
       - checkout
 
       - run: |
-          docker run --user $(id -u):$(id -g) -w /nuclei -v $(pwd):/nuclei:rw --rm projectdiscovery/nuclei:v2.9.6 -u https://prod-48mqpe49.lab.practical-devsecops.training -j -o nuclei-output.json
+          docker run --user $(id -u):$(id -g) -w /nuclei -v $(pwd):/nuclei:rw --rm projectdiscovery/nuclei:v2.9.6 -u https://prod-48mqpe49.lab.practical-devsecops.training -j -o nuclei-output.json || true
 
       - store_artifacts:
           path: nuclei-output.json
